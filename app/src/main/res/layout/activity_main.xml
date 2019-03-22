@@ -32,10 +32,10 @@
         app:layout_constraintVertical_bias="0.861" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="155dp"
+        android:layout_marginTop="152dp"
         android:ems="10"
         android:hint="Login"
         android:inputType="textPersonName"
@@ -48,16 +48,17 @@
         tools:layout_constraintTop_creator="1" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/mdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="48dp"
         android:ems="10"
         android:hint="Mot de passe"
         android:inputType="textPersonName"
-        app:layout_constraintLeft_toLeftOf="@+id/editText"
-        app:layout_constraintRight_toRightOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/login"
+        app:layout_constraintRight_toRightOf="@+id/login"
+        app:layout_constraintTop_toBottomOf="@+id/login"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
