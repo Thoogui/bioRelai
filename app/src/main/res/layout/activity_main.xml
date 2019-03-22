@@ -8,16 +8,16 @@
     tools:context="com.example.gfix.biorelai2.MainActivity">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/connecter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="Se Connecter"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.234"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.868"
-        app:layout_constraintHorizontal_bias="0.221" />
+        app:layout_constraintVertical_bias="0.863" />
 
     <Button
         android:id="@+id/button3"
