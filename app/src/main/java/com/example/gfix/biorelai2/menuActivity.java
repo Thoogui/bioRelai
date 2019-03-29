@@ -18,7 +18,7 @@ public class menuActivity extends Activity {
         try{
             JSONObject log = new JSONObject(getIntent().getStringExtra("log"));
             final TextView textBj = findViewById(R.id.txtBonjour);
-            String identification = "Bonjour "+ log.getString("nomutilisateur");
+            String identification = "Bonjour "+ log.getString("nomutilisateur")+", vous êtes le plus beau des " + log.getString("statut") +"s";
             textBj.setText(identification);
         }
         catch (JSONException e){

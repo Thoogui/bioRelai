@@ -84,6 +84,7 @@ public class MainActivity extends Activity {
                     String nom = log.getString("nomutilisateur");
                     String prenom = log.getString("prenomutilisateur");
                     String mail = log.getString("mail");
+                    String statut = log.getString("statut");
                         Intent intent = new Intent(MainActivity.this, menuActivity.class);
                         intent.putExtra("log", log.toString());
                         startActivity(intent);
