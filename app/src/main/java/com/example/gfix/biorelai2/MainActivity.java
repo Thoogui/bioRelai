@@ -60,15 +60,16 @@ public class MainActivity extends Activity {
                 final EditText textLogin = findViewById(R.id.login);
                 final EditText textMdp = findViewById(R.id.mdp);
                 RequestBody formBody = new FormBody.Builder()
-                        .add("login", String.valueOf(textLogin))
-                        .add("mdp", String.valueOf(textMdp))
+                        .add("login", textLogin.getText().toString())
+                        .add("mdp", textMdp.getText().toString())
                         .build();
                 Request request = new Request.Builder()
-                        .url("http://192.168.56.1/mesProjetsPHP/etudiantsAndroid/authentification.php")
+                        .url("http://mendori.eu/BioRelaiAndroid/identification.php")
                         .post(formBody)
                         .build();
                 Response response = client.newCall(request).execute();
                 responseStr = response.body().string();
+                System.out.println(responseStr);
             }
             catch (Exception e) {
                 Log.d("Test", "Erreur de connexion !!!!");
@@ -80,14 +81,10 @@ public class MainActivity extends Activity {
             if (responseStr.compareTo("false") != 0) {
                 try {
                     JSONObject log = new JSONObject(responseStr);
-                    String nb = log.getString("nbrInt");
-                    if(nb.equals('1')){
-                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                        intent.putExtra("nbrInt", log.toString());
+                    String mail = log.getString("mail");
+                        Intent intent = new Intent(MainActivity.this, menuActivity.class);
+                        //intent.putExtra("mail", log.toString());
                         startActivity(intent);
-                    }else{
-
-                    }
                 } catch (JSONException e) {
                     Toast.makeText(MainActivity.this, "Erreur de connexion !!!!!",
                             Toast.LENGTH_SHORT).show();
