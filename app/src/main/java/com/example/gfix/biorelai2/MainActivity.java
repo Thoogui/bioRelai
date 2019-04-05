@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
                         .add("mdp", textMdp.getText().toString())
                         .build();
                 Request request = new Request.Builder()
-                        .url("http://mendori.eu/BioRelaiAndroid/identification.php")
+                        .url("http://10.100.0.5/~fixg/bioRelaiAndroid/identification.php")
                         .post(formBody)
                         .build();
                 Response response = client.newCall(request).execute();
