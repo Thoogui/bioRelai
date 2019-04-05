@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".menuActivity" >
         </activity>
+        <activity android:name=".ConsulterCommandeActivity" >
+        </activity>
     </application>
 
 </manifest>
