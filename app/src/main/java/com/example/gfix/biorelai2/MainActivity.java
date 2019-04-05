@@ -69,7 +69,6 @@ public class MainActivity extends Activity {
                         .build();
                 Response response = client.newCall(request).execute();
                 responseStr = response.body().string();
-                System.out.println(responseStr);
             }
             catch (Exception e) {
                 Log.d("Test", "Erreur de connexion !!!!");
