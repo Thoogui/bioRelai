@@ -80,13 +80,9 @@ public class MainActivity extends Activity {
             if (responseStr.compareTo("false") != 0) {
                 try {
                     JSONObject log = new JSONObject(responseStr);
-                    String nom = log.getString("nomutilisateur");
-                    String prenom = log.getString("prenomutilisateur");
-                    String mail = log.getString("mail");
-                    String statut = log.getString("statut");
-                        Intent intent = new Intent(MainActivity.this, menuActivity.class);
-                        intent.putExtra("log", log.toString());
-                        startActivity(intent);
+                    Intent intent = new Intent(MainActivity.this, menuActivity.class);
+                    intent.putExtra("log", log.toString());
+                     startActivity(intent);
                 } catch (JSONException e) {
                     Toast.makeText(MainActivity.this, "Erreur de connexion !!!!!",
                             Toast.LENGTH_SHORT).show();

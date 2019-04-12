@@ -18,17 +18,22 @@ public class menuActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
 
+
         final Button btnCommande = (Button) findViewById(R.id.btnCommande);
         btnCommande.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(menuActivity.this, ConsulterCommandeActivity.class);
-                startActivity(intent);
-
+                try{
+                    JSONObject utilisateur = new JSONObject(getIntent().getStringExtra("log"));
+                    Intent intent = new Intent(menuActivity.this, ConsulterCommandeActivity.class);
+                    intent.putExtra("log", utilisateur.toString());
+                    startActivity(intent);
+                }
+                catch (JSONException e){
+                    Toast.makeText(menuActivity.this,"Erreur !",Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-
         try{
             JSONObject log = new JSONObject(getIntent().getStringExtra("log"));
             final TextView textBj = findViewById(R.id.txtBonjour);
