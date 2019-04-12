@@ -1,7 +1,7 @@
 package com.example.gfix.biorelai2;
 
 /**
- * Created by mmaitre on 05/04/2019.
+ * Created by leconnard on 05/04/2019.
  */
 
 public class Commande {
@@ -40,4 +40,6 @@ public class Commande {
     public void setDateCommande(String dateCommande) {
         this.dateCommande = dateCommande;
     }
+
+
 }

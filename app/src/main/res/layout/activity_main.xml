@@ -7,17 +7,18 @@
     android:layout_height="match_parent"
     tools:context="com.example.gfix.biorelai2.MainActivity">
 
+
     <Button
         android:id="@+id/connecter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Se Connecter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintHorizontal_bias="0.177"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.678"
+        app:layout_constraintVertical_bias="0.88"
         android:layout_marginRight="8dp" />
 
     <Button
@@ -30,17 +31,17 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.676" />
+        app:layout_constraintVertical_bias="0.878" />
 
     <EditText
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="267dp"
         android:ems="10"
         android:hint="Login"
         android:inputType="textPersonName"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.426"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -52,7 +53,7 @@
         android:id="@+id/mdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="Mot de passe"
         android:inputType="textPersonName"
@@ -65,16 +66,18 @@
         tools:layout_constraintTop_creator="1" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/aa"
         android:layout_width="106dp"
         android:layout_height="40dp"
         android:src="@android:drawable/ic_secure"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="192dp"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.467" />
+
 
 </android.support.constraint.ConstraintLayout>

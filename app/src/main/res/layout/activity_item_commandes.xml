@@ -17,22 +17,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView_nomAdherent"
+        android:id="@+id/textView_idAdherent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nom"
+        android:text="Id : "
         app:layout_constraintLeft_toLeftOf="@id/textView_idCommande"
         app:layout_constraintTop_toBottomOf="@id/textView_idCommande" />
-
-
-    <TextView
-        android:id="@+id/textView_prenom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="Prénom "
-        app:layout_constraintStart_toEndOf="@+id/textView_nomAdherent"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView_nomAdherent"/>
-
 
 </ConstraintLayout>
