@@ -19,7 +19,7 @@ public class ConsulterCommandeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_commande);
-        ArrayList<Commande> commandes = lesCommandes.getListCommandesJour();
+        ArrayList<Commande> commandes = lesCommandes.getListCommandes();
         ArrayList<HashMap<String,String>> listeCommandes = new  ArrayList<HashMap<String,String>>();
         HashMap<String,String> item ;
         for(Commande uneComm : commandes){

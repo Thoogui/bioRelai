@@ -30,7 +30,8 @@ public class menuActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
-        new menuActivity.BackTaskCommande().execute();
+        new menuActivity.BackTaskProducteur().execute();
+
 
 
         final Button btnCommande = (Button) findViewById(R.id.btnCommande);
@@ -59,7 +60,9 @@ public class menuActivity extends Activity {
         }
 
     }
-    private class BackTaskCommande extends AsyncTask<Void, Void, Void> {
+
+
+    private class BackTaskCategorie extends AsyncTask<Void, Void, Void> {
 
 
         @Override
@@ -69,15 +72,10 @@ public class menuActivity extends Activity {
         @Override
         protected Void doInBackground(Void... params){
             try {
-                final EditText textLogin = findViewById(R.id.login);
-                final EditText textMdp = findViewById(R.id.mdp);
-                JSONObject utilisateur = new JSONObject(getIntent().getStringExtra("log"));
-
                 RequestBody formBody = new FormBody.Builder()
-                        .add("dailyOnly","1")
                         .build();
                 Request request = new Request.Builder()
-                        .url("http://10.100.0.5/~fixg/bioRelaiAndroid/commandes.php")
+                        .url("http://10.0.2.2/bio/categorie.php")
                         .post(formBody)
                         .build();
                 Response response = client.newCall(request).execute();
@@ -92,17 +90,107 @@ public class menuActivity extends Activity {
         protected void onPostExecute(Void result) {
             if (responseStr.compareTo("false") != 0) {
                 try {
-
                     JSONArray jsonArray = new JSONArray(responseStr);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Categorie uneCateg = new Categorie(jsonObject.getString("IDCATEGORIE"),jsonObject.getString("NOMCATEGORIE"));
+                        lesCategories.ajouterCategorie(uneCateg);
+                    }
+                    new menuActivity.BackTaskCommande().execute();
+                } catch (JSONException e) {
+                    Toast.makeText(menuActivity.this, "Erreur !!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(menuActivity.this, "Aucune Commande !", Toast.LENGTH_SHORT).show();
+            }
+        }
 
+    }
+
+    private class BackTaskProducteur extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+        @Override
+        protected Void doInBackground(Void... params){
+            try {
+                RequestBody formBody = new FormBody.Builder()
+                        .build();
+                Request request = new Request.Builder()
+                        .url("http://10.0.2.2/bio/producteurs.php")
+                        .post(formBody)
+                        .build();
+                Response response = client.newCall(request).execute();
+                responseStr = response.body().string();
+            }
+            catch (Exception e) {
+                Log.d("Test", "Erreur de connexion !!!!");
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            if (responseStr.compareTo("false") != 0) {
+                try {
+                    JSONArray jsonArray = new JSONArray(responseStr);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Producteur unProducteur = new Producteur(jsonObject.getString("idproducteur"),jsonObject.getString("IDUTILISATEUR"),jsonObject.getString("NOMUTILISATEUR"),jsonObject.getString("PRENOMUTILISATEUR"),jsonObject.getString("mail"),jsonObject.getString("ADRESSEPRODUCTEUR"),jsonObject.getString("COMMUNEPRODUCTEUR"),jsonObject.getString("CODEPOSTALPRODUCTEUR"),jsonObject.getString("DESCRIPTIFPRODUCTEUR"),jsonObject.getString("PHOTOPRODUCTEUR"));
+                        lesProducteurs.ajouterProducteur(unProducteur);
+                    }
+                    new menuActivity.BackTaskCategorie().execute();
+                    new menuActivity.BackTaskCommande().execute();
+                } catch (JSONException e) {
+                    Toast.makeText(menuActivity.this, "Erreur !!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(menuActivity.this, "Aucune Commande !", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+
+    private class BackTaskCommande extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+        @Override
+        protected Void doInBackground(Void... params){
+            try {
+                RequestBody formBody = new FormBody.Builder()
+                        .add("dailyOnly","1")
+                        .build();
+                Request request = new Request.Builder()
+                        .url("http://10.0.2.2/bio/commandes.php")
+                        .post(formBody)
+                        .build();
+                Response response = client.newCall(request).execute();
+                responseStr = response.body().string();
+            }
+            catch (Exception e) {
+                Log.d("Test", "Erreur de connexion !!!!");
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            if (responseStr.compareTo("false") != 0) {
+                try {
+                    JSONArray jsonArray = new JSONArray(responseStr);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         Commande uneCommande = new Commande(jsonObject.getString("IDCOMMANDE"),jsonObject.getString("IDADHERENT"),jsonObject.getString("DATECOMMANDE"));
                         lesCommandes.ajouterCommande(uneCommande);
                     }
-
-
-
                 } catch (JSONException e) {
                     Toast.makeText(menuActivity.this, "Erreur !!!",
                             Toast.LENGTH_SHORT).show();
