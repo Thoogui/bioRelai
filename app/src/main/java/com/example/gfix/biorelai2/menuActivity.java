@@ -98,7 +98,7 @@ public class menuActivity extends Activity {
                     }
                     new menuActivity.BackTaskCommande().execute();
                 } catch (JSONException e) {
-                    Toast.makeText(menuActivity.this, "Erreur !!!",
+                    Toast.makeText(menuActivity.this, "Erreur Categorie!!!",
                             Toast.LENGTH_SHORT).show();
                 }
             } else {
@@ -143,9 +143,9 @@ public class menuActivity extends Activity {
                         lesProducteurs.ajouterProducteur(unProducteur);
                     }
                     new menuActivity.BackTaskCategorie().execute();
-                    new menuActivity.BackTaskCommande().execute();
+
                 } catch (JSONException e) {
-                    Toast.makeText(menuActivity.this, "Erreur !!!",
+                    Toast.makeText(menuActivity.this, "Erreur Producteur!!!",
                             Toast.LENGTH_SHORT).show();
                 }
             } else {
@@ -155,7 +155,50 @@ public class menuActivity extends Activity {
 
     }
 
+    private class BackTaskProduit extends AsyncTask<Void, Void, Void> {
 
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+        @Override
+        protected Void doInBackground(Void... params){
+            try {
+                RequestBody formBody = new FormBody.Builder()
+                        .build();
+                Request request = new Request.Builder()
+                        .url("http://10.0.2.2/bio/produits.php")
+                        .post(formBody)
+                        .build();
+                Response response = client.newCall(request).execute();
+                responseStr = response.body().string();
+            }
+            catch (Exception e) {
+                Log.d("Test", "Erreur de connexion !!!!");
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            if (responseStr.compareTo("false") != 0) {
+                try {
+                    JSONArray jsonArray = new JSONArray(responseStr);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Produit unProduit = new Produit(jsonObject.getString("IDPRODUIT"),lesProducteurs.getProducteurByID(jsonObject.getString("IDPRODUCTEUR")),lesCategories.getCategorieByID(jsonObject.getString("IDCATEGORIE")),jsonObject.getString("NOMPRODUIT"),jsonObject.getString("DESCRIPTIFPRODUIT"),jsonObject.getString("PHOTOPRODUIT"));
+                        lesProduits.ajouterProduit(unProduit);
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(menuActivity.this, "Erreur Produit!!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(menuActivity.this, "Aucune Commande !", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
     private class BackTaskCommande extends AsyncTask<Void, Void, Void> {
 
 
@@ -191,8 +234,9 @@ public class menuActivity extends Activity {
                         Commande uneCommande = new Commande(jsonObject.getString("IDCOMMANDE"),jsonObject.getString("IDADHERENT"),jsonObject.getString("DATECOMMANDE"));
                         lesCommandes.ajouterCommande(uneCommande);
                     }
+                    new menuActivity.BackTaskProduit().execute();
                 } catch (JSONException e) {
-                    Toast.makeText(menuActivity.this, "Erreur !!!",
+                    Toast.makeText(menuActivity.this, "Erreur Commande!!!",
                             Toast.LENGTH_SHORT).show();
                 }
             } else {

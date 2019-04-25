@@ -12,4 +12,15 @@ public class lesCategories {
     public static ArrayList<Categorie> getListCategories() {
         return listCategories;
     }
+
+    public static Categorie getCategorieByID(String unID){
+        Categorie uneCat = new Categorie("0", "0");
+        for(Categorie uneCateg : listCategories){
+            if(uneCateg.getIdCagegorie().equals(unID)){
+                return uneCateg;
+            }
+        }
+        return uneCat;
+    }
+
 }
