@@ -23,5 +23,15 @@ public class lesLignesCommandes {
         return  liste;
     }
 
+    public static ArrayList<LigneCommande> getUneListeLigneProducteurByCommande(Commande commande, Producteur unPro) {
+        ArrayList<LigneCommande> liste = new ArrayList<LigneCommande>();
+        for(LigneCommande uneLigne : listLigneCommandes){
+            if(uneLigne.getUneCommande().equals(commande) && uneLigne.unProduit.getUnProducteur().equals(unPro)){
+                liste.add(uneLigne);
+            }
+        }
+        return  liste;
+    }
+
 
 }

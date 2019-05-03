@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".ConsulterAncienneCommandeActivity" >
         </activity>
+        <activity android:name=".ConsulterAncienneLigneCommandeActivity" >
+        </activity>
     </application>
 
 </manifest>
