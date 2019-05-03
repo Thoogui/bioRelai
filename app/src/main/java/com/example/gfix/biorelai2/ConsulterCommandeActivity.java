@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,7 +22,21 @@ public class ConsulterCommandeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_commande);
-        ArrayList<Commande> commandes = lesCommandes.getListCommandes();
+
+        JSONObject log = null;
+        ArrayList<Commande> commandes = new ArrayList<>();
+        try {
+            log = new JSONObject(getIntent().getStringExtra("log"));
+            if(log.getString("statut").equals("client")){
+                Utilisateur unUtil = lesUtilisateurs.getUnUtilisateurByIDUTI(log.getString("idutilisateur"));
+
+                commandes = lesCommandes.getListCommandesJourAdherent(unUtil.getIdAdherent());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         ArrayList<HashMap<String,String>> listeCommandes = new  ArrayList<HashMap<String,String>>();
         HashMap<String,String> item ;
         for(Commande uneComm : commandes){

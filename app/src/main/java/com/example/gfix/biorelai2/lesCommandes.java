@@ -30,4 +30,30 @@ public class lesCommandes {
         }
         return liste;
     }
+
+
+    public static ArrayList<Commande> getListCommandesJourAdherent(String idAdherent) {
+        ArrayList<Commande> liste = new ArrayList<Commande>();
+        Date date = new Date();
+        String dateJour = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        for(Commande uneComm : listCommandes){
+            if(uneComm.getDateCommande().equals(dateJour) && uneComm.getAdherent().getIdAdherent().equals(idAdherent)){
+                liste.add(uneComm);
+            }
+        }
+        return liste;
+    }
+
+
+    public static ArrayList<Commande> getListCommandesJourProducteur(String idAdherent) {
+        ArrayList<Commande> liste = new ArrayList<Commande>();
+        Date date = new Date();
+        String dateJour = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        for(Commande uneComm : listCommandes){
+            if(uneComm.getDateCommande().equals(dateJour) && uneComm.getAdherent().getIdAdherent().equals(idAdherent)){
+                liste.add(uneComm);
+            }
+        }
+        return liste;
+    }
 }

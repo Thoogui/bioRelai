@@ -26,4 +26,13 @@ public class lesUtilisateurs {
         return  null;
     }
 
+    public static Utilisateur getUnUtilisateurByIDUTI(String idUtilisateur) {
+        for(Utilisateur unUtil : listUtilisateur){
+            if(unUtil.getIDUTILISATEUR().equals(idUtilisateur)){
+                return unUtil;
+            }
+        }
+        return  null;
+    }
+
 }
