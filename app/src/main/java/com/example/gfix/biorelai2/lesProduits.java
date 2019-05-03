@@ -13,5 +13,13 @@ public class lesProduits {
         return listProduits;
     }
 
+    public static Produit getUnProduitByID(String id) {
+        for(Produit unProd : listProduits){
+            if(unProd.getIdProduit().equals(id)){
+                return unProd;
+            }
+        }
+        return  null;
+    }
 
 }
