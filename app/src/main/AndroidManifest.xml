@@ -25,6 +25,8 @@
         <activity android:name=".ConsulterAncienneCommandeActivity" >
         </activity>
         <activity android:name=".ConsulterAncienneLigneCommandeActivity" >
+    </activity>
+        <activity android:name=".ConsulterLigneCommandeJourActivity" >
         </activity>
     </application>
 
