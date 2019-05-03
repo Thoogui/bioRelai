@@ -31,6 +31,15 @@ public class lesCommandes {
         return liste;
     }
 
+    public static Commande getUneCommandeByID(String id) {
+        for(Commande uneComm : listCommandes){
+            if(uneComm.getIdCommande().equals(id)){
+                return uneComm;
+            }
+        }
+        return  null;
+    }
+
 
     public static ArrayList<Commande> getListCommandesJourAdherent(String idAdherent) {
         ArrayList<Commande> liste = new ArrayList<Commande>();

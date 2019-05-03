@@ -236,6 +236,7 @@ public class menuActivity extends Activity {
                         Produit unProduit = new Produit(jsonObject.getString("IDPRODUIT"),lesProducteurs.getProducteurByID(jsonObject.getString("IDPRODUCTEUR")),lesCategories.getCategorieByID(jsonObject.getString("IDCATEGORIE")),jsonObject.getString("NOMPRODUIT"),jsonObject.getString("DESCRIPTIFPRODUIT"),jsonObject.getString("PHOTOPRODUIT"));
                         lesProduits.ajouterProduit(unProduit);
                     }
+                    new menuActivity.BackTaskLigneCommande().execute();
                 } catch (JSONException e) {
                     Toast.makeText(menuActivity.this, "Erreur Produit!!!",
                             Toast.LENGTH_SHORT).show();
@@ -284,6 +285,52 @@ public class menuActivity extends Activity {
                     new menuActivity.BackTaskProduit().execute();
                 } catch (JSONException e) {
                     Toast.makeText(menuActivity.this, "Erreur Commande!!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(menuActivity.this, "Aucune Commande !", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+    private class BackTaskLigneCommande extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+        @Override
+        protected Void doInBackground(Void... params){
+            try {
+                RequestBody formBody = new FormBody.Builder()
+                        .build();
+                Request request = new Request.Builder()
+                        .url("http://10.0.2.2/bio/ligneCommande.php")
+                        .post(formBody)
+                        .build();
+                Response response = client.newCall(request).execute();
+                responseStr = response.body().string();
+            }
+            catch (Exception e) {
+                Log.d("Test", "Erreur de connexion !!!!");
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            if (responseStr.compareTo("false") != 0) {
+                try {
+                    JSONArray jsonArray = new JSONArray(responseStr);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        LigneCommande uneLigneCom = new LigneCommande(lesProduits.getUnProduitByID(jsonObject.getString("IDPRODUIT")),lesCommandes.getUneCommandeByID(jsonObject.getString("IDCOMMANDE")),jsonObject.getDouble("QUANTITE"),jsonObject.getDouble("QUANTITELIVREECLIENT"),jsonObject.getDouble("QUANTITERECUPERECLIENT"),jsonObject.getDouble("QUANTITELIVREEPRODUCTEUR"),jsonObject.getDouble("QUANTITERECUPEREPRODUCTEUR"),jsonObject.getInt("VUERESPONSABLE"));
+                        lesLignesCommandes.ajouterLigne(uneLigneCom);
+                    }
+                } catch (JSONException e) {
+                    System.out.println("----------------Erreur : " + e);
+                    Toast.makeText(menuActivity.this, "Erreur Ligne Commande!!!",
                             Toast.LENGTH_SHORT).show();
                 }
             } else {
