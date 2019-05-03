@@ -17,10 +17,9 @@ public class lesUtilisateurs {
         return listUtilisateur;
     }
 
-    public static Utilisateur getUnUtilisateur(String idAdherent) {
-        Utilisateur unUtilisateur;
+    public static Utilisateur getUnUtilisateurByIDAD(String idAdherent) {
         for(Utilisateur unUtil : listUtilisateur){
-            if(unUtil.getIDUTILISATEUR().equals(idAdherent)){
+            if(unUtil.getIdAdherent().equals(idAdherent)){
                 return unUtil;
             }
         }

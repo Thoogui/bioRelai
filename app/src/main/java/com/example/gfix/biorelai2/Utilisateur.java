@@ -8,6 +8,7 @@ public class Utilisateur {
     private String LOGINUTILISATEUR;
     private String idAdherent;
 
+
     public Utilisateur(String IDUTILISATEUR, String STATUT, String NOMUTILISATEUR, String PRENOMUTILISATEUR, String LOGINUTILISATEUR, String idAdherent) {
         this.IDUTILISATEUR = IDUTILISATEUR;
         this.STATUT = STATUT;
@@ -52,6 +53,10 @@ public class Utilisateur {
 
     public void setLOGINUTILISATEUR(String LOGINUTILISATEUR) {
         this.LOGINUTILISATEUR = LOGINUTILISATEUR;
+    }
+
+    public String getIdAdherent() {
+        return idAdherent;
     }
 
     public void setIdAdherent(String idAdherent) {

@@ -6,12 +6,12 @@ package com.example.gfix.biorelai2;
 
 public class Commande {
     private String idCommande;
-    private String idAdherent;
+    private Utilisateur Adherent;
     private String dateCommande;
 
-    public Commande(String idCommande, String idAdherent, String dateCommande) {
+    public Commande(String idCommande, Utilisateur Adherent, String dateCommande) {
         this.idCommande = idCommande;
-        this.idAdherent = idAdherent;
+        this.Adherent = Adherent;
         this.dateCommande = dateCommande;
     }
 
@@ -23,14 +23,14 @@ public class Commande {
         this.idCommande = idCommande;
     }
 
-    public String getIdAdherent() {
-        return idAdherent;
+    public Utilisateur getAdherent() {
+        return Adherent;
     }
 
 
 
-    public void setIdAdherent(String idAdherent) {
-        this.idAdherent = idAdherent;
+    public void setIdAdherent(Utilisateur Adherent) {
+        this.Adherent = Adherent;
     }
 
     public String getDateCommande() {

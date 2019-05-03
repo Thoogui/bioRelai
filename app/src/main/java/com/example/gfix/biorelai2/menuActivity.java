@@ -96,9 +96,56 @@ public class menuActivity extends Activity {
                         Categorie uneCateg = new Categorie(jsonObject.getString("IDCATEGORIE"),jsonObject.getString("NOMCATEGORIE"));
                         lesCategories.ajouterCategorie(uneCateg);
                     }
-                    new menuActivity.BackTaskCommande().execute();
+                    new menuActivity.BackTaskAdherent().execute();
                 } catch (JSONException e) {
                     Toast.makeText(menuActivity.this, "Erreur Categorie!!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(menuActivity.this, "Aucune Commande !", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+    private class BackTaskAdherent extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+        @Override
+        protected Void doInBackground(Void... params){
+            try {
+                RequestBody formBody = new FormBody.Builder()
+                        .build();
+                Request request = new Request.Builder()
+                        .url("http://10.0.2.2/bio/adherents.php")
+                        .post(formBody)
+                        .build();
+                Response response = client.newCall(request).execute();
+                responseStr = response.body().string();
+            }
+            catch (Exception e) {
+                Log.d("Test", "Erreur de connexion !!!!");
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            if (responseStr.compareTo("false") != 0) {
+                try {
+                    JSONArray jsonArray = new JSONArray(responseStr);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Utilisateur unUtilisateur = new Utilisateur(jsonObject.getString("IDUTILISATEUR"),jsonObject.getString("STATUT"),jsonObject.getString("NOMUTILISATEUR"),jsonObject.getString("PRENOMUTILISATEUR"),jsonObject.getString("LOGIN"),jsonObject.getString("idadherent"));
+                        lesUtilisateurs.ajouterUtilisateur(unUtilisateur);
+                    }
+                    new menuActivity.BackTaskCommande().execute();
+
+                } catch (JSONException e) {
+                    Toast.makeText(menuActivity.this, "Erreur Adherents!!!",
                             Toast.LENGTH_SHORT).show();
                 }
             } else {
@@ -231,7 +278,7 @@ public class menuActivity extends Activity {
                     JSONArray jsonArray = new JSONArray(responseStr);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        Commande uneCommande = new Commande(jsonObject.getString("IDCOMMANDE"),jsonObject.getString("IDADHERENT"),jsonObject.getString("DATECOMMANDE"));
+                        Commande uneCommande = new Commande(jsonObject.getString("IDCOMMANDE"),lesUtilisateurs.getUnUtilisateurByIDAD(jsonObject.getString("IDADHERENT")),jsonObject.getString("DATECOMMANDE"));
                         lesCommandes.ajouterCommande(uneCommande);
                     }
                     new menuActivity.BackTaskProduit().execute();
