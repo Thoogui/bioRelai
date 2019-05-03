@@ -49,6 +49,21 @@ public class menuActivity extends Activity {
                 }
             }
         });
+        final Button btnOldCommande = (Button) findViewById(R.id.btnOldCommande);
+        btnOldCommande.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    JSONObject utilisateur = new JSONObject(getIntent().getStringExtra("log"));
+                    Intent intent = new Intent(menuActivity.this, ConsulterAncienneCommandeActivity.class);
+                    intent.putExtra("log", utilisateur.toString());
+                    startActivity(intent);
+                }
+                catch (JSONException e){
+                    Toast.makeText(menuActivity.this,"Erreur !",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         try{
             JSONObject log = new JSONObject(getIntent().getStringExtra("log"));
             final TextView textBj = findViewById(R.id.txtBonjour);
@@ -329,7 +344,7 @@ public class menuActivity extends Activity {
                         lesLignesCommandes.ajouterLigne(uneLigneCom);
                     }
                 } catch (JSONException e) {
-                    System.out.println("----------------Erreur : " + e);
+                    System.out.println("Erreur : " + e);
                     Toast.makeText(menuActivity.this, "Erreur Ligne Commande!!!",
                             Toast.LENGTH_SHORT).show();
                 }

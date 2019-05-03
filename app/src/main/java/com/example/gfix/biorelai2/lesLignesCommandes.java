@@ -13,5 +13,15 @@ public class lesLignesCommandes {
         return listLigneCommandes;
     }
 
+    public static ArrayList<LigneCommande> getUneListeLigneByCommande(Commande commande) {
+        ArrayList<LigneCommande> liste = new ArrayList<LigneCommande>();
+        for(LigneCommande uneLigne : listLigneCommandes){
+            if(uneLigne.getUneCommande().equals(commande)){
+                liste.add(uneLigne);
+            }
+        }
+        return  liste;
+    }
+
 
 }

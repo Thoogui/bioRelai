@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 import okhttp3.OkHttpClient;
 
-public class ConsulterCommandeActivity extends Activity {
+public class ConsulterAncienneCommandeActivity extends Activity {
 
     String responseStr;
     OkHttpClient client = new OkHttpClient();
@@ -30,15 +30,15 @@ public class ConsulterCommandeActivity extends Activity {
 
             if(log.getString("statut").equals("client")){
                 Utilisateur unUtil = lesUtilisateurs.getUnUtilisateurByIDUTI(log.getString("idutilisateur"));
-                commandes = lesCommandes.getListCommandesJourAdherent(unUtil.getIdAdherent());
+                commandes = lesCommandes.getListOldCommandesAdherent(unUtil.getIdAdherent());
             }
             else if(log.getString("statut").equals("producteur")){
                 Producteur unProducteur =  lesProducteurs.getProducteurByIDUtilisateur(log.getString("idutilisateur"));
 
-                commandes = lesCommandes.getListCommandesJourProducteur(unProducteur.getIdProducteur());
+                commandes = lesCommandes.getListOldCommandesProducteur(unProducteur.getIdProducteur());
             }
             else{
-                commandes = lesCommandes.getListCommandesJour();
+                commandes = lesCommandes.getListOldCommandes();
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class ConsulterCommandeActivity extends Activity {
             listeCommandes.add(item);
         }
         ListView listViewCommande = (ListView) findViewById(R.id.listViewCommandes);
-        SimpleAdapter adapter = new SimpleAdapter(ConsulterCommandeActivity.this, listeCommandes, android.R.layout.simple_list_item_2,
+        SimpleAdapter adapter = new SimpleAdapter(ConsulterAncienneCommandeActivity.this, listeCommandes, android.R.layout.simple_list_item_2,
                 new String[]{"ligne1" , "ligne2"},new int[]{android.R.id.text1 , android.R.id.text2});
         listViewCommande.setAdapter(adapter);
     }

@@ -31,6 +31,18 @@ public class lesCommandes {
         return liste;
     }
 
+    public static ArrayList<Commande> getListOldCommandes() {
+        ArrayList<Commande> liste = new ArrayList<Commande>();
+        Date date = new Date();
+        String dateJour = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        for(Commande uneComm : listCommandes){
+            if(!uneComm.getDateCommande().equals(dateJour)){
+                liste.add(uneComm);
+            }
+        }
+        return liste;
+    }
+
     public static Commande getUneCommandeByID(String id) {
         for(Commande uneComm : listCommandes){
             if(uneComm.getIdCommande().equals(id)){
@@ -40,6 +52,18 @@ public class lesCommandes {
         return  null;
     }
 
+
+    public static ArrayList<Commande> getListOldCommandesAdherent(String idAdherent) {
+        ArrayList<Commande> liste = new ArrayList<Commande>();
+        Date date = new Date();
+        String dateJour = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        for(Commande uneComm : listCommandes){
+            if(!uneComm.getDateCommande().equals(dateJour) && uneComm.getAdherent().getIdAdherent().equals(idAdherent)){
+                liste.add(uneComm);
+            }
+        }
+        return liste;
+    }
 
     public static ArrayList<Commande> getListCommandesJourAdherent(String idAdherent) {
         ArrayList<Commande> liste = new ArrayList<Commande>();
@@ -54,14 +78,46 @@ public class lesCommandes {
     }
 
 
-    public static ArrayList<Commande> getListCommandesJourProducteur(String idAdherent) {
+    public static ArrayList<Commande> getListCommandesJourProducteur(String idProducteur) {
         ArrayList<Commande> liste = new ArrayList<Commande>();
         Date date = new Date();
         String dateJour = new SimpleDateFormat("yyyy-MM-dd").format(date);
         for(Commande uneComm : listCommandes){
-            if(uneComm.getDateCommande().equals(dateJour) && uneComm.getAdherent().getIdAdherent().equals(idAdherent)){
-                liste.add(uneComm);
+            boolean result = false;
+            if(uneComm.getDateCommande().equals(dateJour)){
+                for(LigneCommande uneLigne : lesLignesCommandes.getUneListeLigneByCommande(uneComm)){
+                    if(uneLigne.unProduit.getUnProducteur().getIdProducteur().equals(idProducteur)){
+                        result = true;
+                    }
+                }
             }
+            if(result){
+                liste.add(uneComm);
+                result = false;
+            }
+
+        }
+        return liste;
+    }
+
+    public static ArrayList<Commande> getListOldCommandesProducteur(String idProducteur) {
+        ArrayList<Commande> liste = new ArrayList<Commande>();
+        Date date = new Date();
+        String dateJour = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        for(Commande uneComm : listCommandes){
+            boolean result = false;
+            if(!uneComm.getDateCommande().equals(dateJour)){
+                for(LigneCommande uneLigne : lesLignesCommandes.getUneListeLigneByCommande(uneComm)){
+                    if(uneLigne.unProduit.getUnProducteur().getIdProducteur().equals(idProducteur)){
+                        result = true;
+                    }
+                }
+            }
+            if(result){
+                liste.add(uneComm);
+                result = false;
+            }
+
         }
         return liste;
     }

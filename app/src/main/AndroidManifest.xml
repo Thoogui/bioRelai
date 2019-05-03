@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".ConsulterCommandeActivity" >
         </activity>
+        <activity android:name=".ConsulterAncienneCommandeActivity" >
+        </activity>
     </application>
 
 </manifest>
