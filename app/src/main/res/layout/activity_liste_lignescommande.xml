@@ -10,11 +10,20 @@
         android:id="@+id/listViewCommandes"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="8dp" />
+
+    <TextView
+        android:id="@+id/textLigne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Produit lié à la commande "
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
 
 </android.support.constraint.ConstraintLayout>

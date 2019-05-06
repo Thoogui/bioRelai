@@ -9,6 +9,15 @@ public class lesLignesCommandes {
         listLigneCommandes.add(uneLigne);
     }
 
+    public static LigneCommande getLigneCommandes(Commande uneComm,Produit unProd) {
+        for(LigneCommande uneLigne : listLigneCommandes){
+            if(uneLigne.getUneCommande().equals(uneComm) && uneLigne.getUnProduit().equals(unProd)){
+                return uneLigne;
+            }
+        }
+        return null;
+    }
+
     public static ArrayList<LigneCommande> getListLigneCommandes() {
         return listLigneCommandes;
     }

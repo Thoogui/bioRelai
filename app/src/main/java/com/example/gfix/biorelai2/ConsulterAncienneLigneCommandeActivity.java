@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,11 +29,9 @@ public class ConsulterAncienneLigneCommandeActivity extends Activity {
         try {
             log = new JSONObject(getIntent().getStringExtra("log"));
             Commande uneCommande = lesCommandes.getUneCommandeByID(getIntent().getStringExtra("idCommande"));
-            if(log.getString("statut").equals("client")){
-                Utilisateur unUtil = lesUtilisateurs.getUnUtilisateurByIDUTI(log.getString("idutilisateur"));
-                ligneCommandes = lesLignesCommandes.getUneListeLigneByCommande(uneCommande);
-            }
-            else if(log.getString("statut").equals("producteur")){
+            TextView text = (TextView) findViewById(R.id.textLigne);
+            text.setText(text.getText() + getIntent().getStringExtra("idCommande"));
+            if(log.getString("statut").equals("producteur")){
                 Producteur unProducteur =  lesProducteurs.getProducteurByIDUtilisateur(log.getString("idutilisateur"));
                 ligneCommandes = lesLignesCommandes.getUneListeLigneProducteurByCommande(uneCommande,unProducteur);
             }
