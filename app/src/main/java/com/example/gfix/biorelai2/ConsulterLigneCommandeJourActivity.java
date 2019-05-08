@@ -1,7 +1,10 @@
 package com.example.gfix.biorelai2;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -44,7 +47,7 @@ public class ConsulterLigneCommandeJourActivity extends Activity
         }
 
 
-        ArrayList<HashMap<String,String>> listeCommandes = new  ArrayList<HashMap<String,String>>();
+        final ArrayList<HashMap<String,String>> listeCommandes = new  ArrayList<HashMap<String,String>>();
         HashMap<String,String> item ;
         for(LigneCommande uneLigne : ligneCommandes){
             item = new HashMap<String,String>();
@@ -58,6 +61,17 @@ public class ConsulterLigneCommandeJourActivity extends Activity
         SimpleAdapter adapter = new SimpleAdapter(ConsulterLigneCommandeJourActivity.this, listeCommandes, android.R.layout.simple_list_item_2,
                 new String[]{"ligne1" , "ligne2"},new int[]{android.R.id.text1 , android.R.id.text2});
         listViewLigneCommande.setAdapter(adapter);
+
+        listViewLigneCommande.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ConsulterLigneCommandeJourActivity.this, ConsulterLaLigneCommandeActivity.class);
+                intent.putExtra("idCommande", listeCommandes.get(position).get("idCommande"));
+                intent.putExtra("idProduit", listeCommandes.get(position).get("idProduit"));
+                intent.putExtra("log", getIntent().getStringExtra("log"));
+                startActivity(intent);
+            }
+        });
     }
 
 }

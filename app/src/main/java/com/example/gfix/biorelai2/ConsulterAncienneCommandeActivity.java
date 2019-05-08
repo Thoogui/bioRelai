@@ -38,7 +38,6 @@ public class ConsulterAncienneCommandeActivity extends Activity {
             }
             else if(log.getString("statut").equals("producteur")){
                 Producteur unProducteur =  lesProducteurs.getProducteurByIDUtilisateur(log.getString("idutilisateur"));
-
                 commandes = lesCommandes.getListOldCommandesProducteur(unProducteur.getIdProducteur());
             }
             else{
