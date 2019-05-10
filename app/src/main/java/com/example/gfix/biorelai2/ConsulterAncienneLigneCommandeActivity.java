@@ -50,8 +50,8 @@ public class ConsulterAncienneLigneCommandeActivity extends Activity {
         HashMap<String,String> item ;
         for(LigneCommande uneLigne : ligneCommandes){
             item = new HashMap<String,String>();
-            item.put("ligne1", uneLigne.unProduit.getNomProduit());
-            item.put("ligne2" , uneLigne.unProduit.getDescriptifProduit());
+            item.put("ligne1", uneLigne.unProduit.getNomProduit() +" - "+uneLigne.quantite +"g");
+            item.put("ligne2" ,uneLigne.unProduit.getUneCategorie().getNomCategorie() +" - "+ uneLigne.unProduit.getDescriptifProduit());
             item.put("idProduit" , uneLigne.unProduit.getIdProduit());
             item.put("idCommande" , uneLigne.uneCommande.getIdCommande());
             listeCommandes.add(item);
@@ -67,6 +67,7 @@ public class ConsulterAncienneLigneCommandeActivity extends Activity {
                 Intent intent = new Intent(ConsulterAncienneLigneCommandeActivity.this, ConsulterLaLigneCommandeActivity.class);
                 intent.putExtra("idCommande", listeCommandes.get(position).get("idCommande"));
                 intent.putExtra("idProduit", listeCommandes.get(position).get("idProduit"));
+                intent.putExtra("ancienne", true);
                 intent.putExtra("log", getIntent().getStringExtra("log"));
                 startActivity(intent);
             }

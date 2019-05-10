@@ -53,7 +53,7 @@ public class ConsulterAncienneCommandeActivity extends Activity {
         for(Commande uneComm : commandes){
             item = new HashMap<String,String>();
             item.put("ligne1", "Commande n°"+uneComm.getIdCommande());
-            item.put("ligne2" , uneComm.getDateCommande());
+            item.put("ligne2" , "Client : " +uneComm.getAdherent().getNOMUTILISATEUR() +" - "+uneComm.getDateCommande());
             item.put("idCommande" , uneComm.getIdCommande());
             listeCommandes.add(item);
         }
