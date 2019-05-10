@@ -46,15 +46,14 @@
 
     <TextView
         android:id="@+id/textInfo"
-        android:layout_width="381dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="238dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:text="TextInfo"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textQuantiteFinal" />
 
@@ -80,13 +79,13 @@
         android:layout_marginEnd="8dp"
         android:text="Quantités"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/editText"
+        app:layout_constraintEnd_toStartOf="@+id/editQuantiteFinal"
         app:layout_constraintHorizontal_bias="0.975"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textQuantite" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editQuantiteFinal"
         android:layout_width="129dp"
         android:layout_height="34dp"
         android:layout_marginTop="32dp"

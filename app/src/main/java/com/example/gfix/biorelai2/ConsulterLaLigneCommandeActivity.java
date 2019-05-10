@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,21 +49,37 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
             else if(uneLigne.QUANTITERECUPERECLIENT >0){
                 textInfo.setText("La commande a été récupéré partiellement.");
             }else{
-                textInfo.setText("La commande n'a pas été récupéré.");
+                if(uneLigne.QUANTITELIVREEPRODUCTEUR == 0){
+                    textInfo.setText("Le producteur "+uneLigne.unProduit.getUnProducteur().getNomProducteur()+" a été absent lors de cette commande");
+                }else{
+                    textInfo.setText("Le client "+uneLigne.uneCommande.getAdherent().getNOMUTILISATEUR()+" a été absent lors de cette commande");
+                }
+
             }
             TextView textQuantiteFinal = (TextView) findViewById(R.id.textQuantiteFinal);
             textQuantiteFinal.setVisibility(View.INVISIBLE);
+            EditText editQuantite = (EditText) findViewById(R.id.editQuantiteFinal);
+            editQuantite.setVisibility(View.INVISIBLE);
+            Button valider = (Button) findViewById(R.id.btnAction);
+            valider.setVisibility(View.INVISIBLE);
 
 
 
         }else{
             if(uneLigne.QUANTITELIVREEPRODUCTEUR == uneLigne.QUANTITERECUPERECLIENT){
-                textInfo.setText("La commande a été récupéré");
+                textInfo.setText("La commande a été récupéré.");
+                TextView textQuantiteFinal = (TextView) findViewById(R.id.textQuantiteFinal);
+                textQuantiteFinal.setVisibility(View.INVISIBLE);
+                EditText editQuantite = (EditText) findViewById(R.id.editQuantiteFinal);
+                editQuantite.setVisibility(View.INVISIBLE);
+                Button valider = (Button) findViewById(R.id.btnAction);
+                valider.setVisibility(View.INVISIBLE);
             }
             else if(uneLigne.QUANTITERECUPERECLIENT >0){
                 textInfo.setText("La commande a été récupéré partiellement.");
-            }else{
-                textInfo.setText("La commande n'a pas encore été récupéré");
+            }
+            else{
+                textInfo.setText("La commande n'a pas encore été récupéré.");
             }
         }
         JSONObject log = null;
