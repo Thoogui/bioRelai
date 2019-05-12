@@ -1,14 +1,14 @@
 package com.example.gfix.biorelai2;
 
 public class LigneCommande {
-    Produit unProduit;
-    Commande uneCommande;
-    Double quantite;
-    Double quantiteLivreClient;
-    Double QUANTITERECUPERECLIENT;
-    Double QUANTITELIVREEPRODUCTEUR;
-    Double QUANTITERECUPEREPRODUCTEUR;
-    Boolean VUERESPONSABLE;
+    private Produit unProduit;
+    private Commande uneCommande;
+    private Double quantite;
+    private Double quantiteLivreClient;
+    private Double QUANTITERECUPERECLIENT;
+    private Double QUANTITELIVREEPRODUCTEUR;
+    private Double QUANTITERECUPEREPRODUCTEUR;
+    private Boolean VUERESPONSABLE;
 
     public LigneCommande(Produit unProduit, Commande uneCommande, Double quantite, Double quantiteLivreClient, Double QUANTITERECUPERECLIENT, Double QUANTITELIVREEPRODUCTEUR, Double QUANTITERECUPEREPRODUCTEUR, int VUERESPONSABLE) {
         this.unProduit = unProduit;
@@ -85,6 +85,16 @@ public class LigneCommande {
 
     public Boolean getVUERESPONSABLE() {
         return VUERESPONSABLE;
+    }
+
+    public String getVUERESPONSABLEChiffre() {
+        String res;
+        if(getVUERESPONSABLE()){
+            res="1";
+        }else{
+            res="0";
+        }
+        return res;
     }
 
     public void setVUERESPONSABLE(Boolean VUERESPONSABLE) {

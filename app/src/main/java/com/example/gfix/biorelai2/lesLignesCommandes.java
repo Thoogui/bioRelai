@@ -35,7 +35,7 @@ public class lesLignesCommandes {
     public static ArrayList<LigneCommande> getUneListeLigneProducteurByCommande(Commande commande, Producteur unPro) {
         ArrayList<LigneCommande> liste = new ArrayList<LigneCommande>();
         for(LigneCommande uneLigne : listLigneCommandes){
-            if(uneLigne.getUneCommande().equals(commande) && uneLigne.unProduit.getUnProducteur().equals(unPro)){
+            if(uneLigne.getUneCommande().equals(commande) && uneLigne.getUnProduit().getUnProducteur().equals(unPro)){
                 liste.add(uneLigne);
             }
         }

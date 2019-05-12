@@ -86,7 +86,7 @@ public class lesCommandes {
             boolean result = false;
             if(uneComm.getDateCommande().equals(dateJour)){
                 for(LigneCommande uneLigne : lesLignesCommandes.getUneListeLigneByCommande(uneComm)){
-                    if(uneLigne.unProduit.getUnProducteur().getIdProducteur().equals(idProducteur)){
+                    if(uneLigne.getUnProduit().getUnProducteur().getIdProducteur().equals(idProducteur)){
                         result = true;
                     }
                 }
@@ -108,7 +108,7 @@ public class lesCommandes {
             boolean result = false;
             if(!uneComm.getDateCommande().equals(dateJour)){
                 for(LigneCommande uneLigne : lesLignesCommandes.getUneListeLigneByCommande(uneComm)){
-                    if(uneLigne.unProduit.getUnProducteur().getIdProducteur().equals(idProducteur)){
+                    if(uneLigne.getUnProduit().getUnProducteur().getIdProducteur().equals(idProducteur)){
                         result = true;
                     }
                 }
