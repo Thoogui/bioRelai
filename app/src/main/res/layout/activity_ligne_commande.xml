@@ -6,6 +6,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/editQuantiteRecup"
+        android:layout_width="131dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="84dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textQuantiteRecup"
+        app:layout_constraintTop_toBottomOf="@+id/editQuantiteLivre" />
+
+    <TextView
+        android:id="@+id/textQuantiteRecup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:text="Quantité récup"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/editQuantiteLivre"
+        app:layout_constraintHorizontal_bias="0.966"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textQuantiteLivre" />
+
     <ImageView
         android:id="@+id/imageProduit"
         android:layout_width="239dp"
@@ -36,11 +64,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:text="Quantité demandée"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textProduit" />
 
@@ -49,13 +78,14 @@
         android:layout_width="238dp"
         android:layout_height="55dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         android:text="TextInfo"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.401"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textQuantiteFinal" />
+        app:layout_constraintTop_toBottomOf="@+id/textQuantiteRecup" />
 
     <Button
         android:id="@+id/btnAction"
@@ -71,24 +101,24 @@
         app:layout_constraintTop_toBottomOf="@+id/textInfo" />
 
     <TextView
-        android:id="@+id/textQuantiteFinal"
+        android:id="@+id/textQuantiteLivre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Quantités"
+        android:text="Quantité livrée"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/editQuantiteFinal"
-        app:layout_constraintHorizontal_bias="0.975"
+        app:layout_constraintEnd_toStartOf="@+id/editQuantiteLivre"
+        app:layout_constraintHorizontal_bias="0.966"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textQuantite" />
 
     <EditText
-        android:id="@+id/editQuantiteFinal"
-        android:layout_width="129dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="32dp"
+        android:id="@+id/editQuantiteLivre"
+        android:layout_width="128dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="84dp"
         android:ems="10"
         android:inputType="numberDecimal"
