@@ -340,7 +340,7 @@ public class menuActivity extends Activity {
                     JSONArray jsonArray = new JSONArray(responseStr);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        LigneCommande uneLigneCom = new LigneCommande(lesProduits.getUnProduitByID(jsonObject.getString("IDPRODUIT")),lesCommandes.getUneCommandeByID(jsonObject.getString("IDCOMMANDE")),jsonObject.getDouble("QUANTITE"),jsonObject.getDouble("QUANTITELIVREECLIENT"),jsonObject.getDouble("QUANTITERECUPERECLIENT"),jsonObject.getDouble("QUANTITELIVREEPRODUCTEUR"),jsonObject.getDouble("QUANTITERECUPEREPRODUCTEUR"),jsonObject.getInt("VUERESPONSABLE"));
+                        LigneCommande uneLigneCom = new LigneCommande(lesProduits.getUnProduitByID(jsonObject.getString("IDPRODUIT")),lesCommandes.getUneCommandeByID(jsonObject.getString("IDCOMMANDE")),jsonObject.getDouble("QUANTITE"),jsonObject.getDouble("QUANTITELIVREECLIENT"),jsonObject.getDouble("QUANTITERECUPERECLIENT"),jsonObject.getDouble("QUANTITELIVREEPRODUCTEUR"),jsonObject.getDouble("QUANTITERECUPEREPRODUCTEUR"),jsonObject.getInt("VUERESPONSABLE"),jsonObject.getDouble("QUANTITELIVREECLIENT"));
                         lesLignesCommandes.ajouterLigne(uneLigneCom);
                     }
                 } catch (JSONException e) {

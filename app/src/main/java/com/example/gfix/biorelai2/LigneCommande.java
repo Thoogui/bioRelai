@@ -7,10 +7,12 @@ public class LigneCommande {
     private Double quantiteLivreClient;
     private Double QUANTITERECUPERECLIENT;
     private Double QUANTITELIVREEPRODUCTEUR;
+    private  Double QUANTITELIVREECLIENT;
     private Double QUANTITERECUPEREPRODUCTEUR;
     private Boolean VUERESPONSABLE;
 
-    public LigneCommande(Produit unProduit, Commande uneCommande, Double quantite, Double quantiteLivreClient, Double QUANTITERECUPERECLIENT, Double QUANTITELIVREEPRODUCTEUR, Double QUANTITERECUPEREPRODUCTEUR, int VUERESPONSABLE) {
+    public LigneCommande(Produit unProduit, Commande uneCommande, Double quantite, Double quantiteLivreClient, Double QUANTITERECUPERECLIENT, Double QUANTITELIVREEPRODUCTEUR, Double QUANTITERECUPEREPRODUCTEUR, int VUERESPONSABLE, Double QUANTITELIVREECLIENT) {
+
         this.unProduit = unProduit;
         this.uneCommande = uneCommande;
         this.quantite = quantite;
@@ -23,6 +25,7 @@ public class LigneCommande {
         }else{
             this.VUERESPONSABLE = false;
         }
+        this.QUANTITELIVREECLIENT =  QUANTITELIVREECLIENT;
 
     }
 
@@ -95,6 +98,14 @@ public class LigneCommande {
             res="0";
         }
         return res;
+    }
+
+    public Double getQUANTITELIVREECLIENT() {
+        return QUANTITELIVREECLIENT;
+    }
+
+    public void setQUANTITELIVREECLIENT(Double QUANTITELIVREECLIENT) {
+        this.QUANTITELIVREECLIENT = QUANTITELIVREECLIENT;
     }
 
     public void setVUERESPONSABLE(Boolean VUERESPONSABLE) {

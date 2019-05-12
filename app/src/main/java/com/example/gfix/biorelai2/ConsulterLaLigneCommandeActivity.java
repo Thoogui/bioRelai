@@ -1,8 +1,6 @@
 package com.example.gfix.biorelai2;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,10 +17,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import okhttp3.FormBody;
@@ -51,6 +45,13 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
         ImageView uneImage = (ImageView) findViewById(R.id.imageProduit);
         Picasso.with(this).load(uneLigne.getUnProduit().getPhotoProduit()).into(uneImage);
         TextView textInfo = (TextView) findViewById(R.id.textInfo);
+
+        EditText editQuantiteRecup = (EditText) findViewById(R.id.editQuantiteRecup);
+        EditText editQuantiteLivre = (EditText) findViewById(R.id.editQuantiteLivre);
+        Button valider = (Button) findViewById(R.id.btnAction);
+
+
+
         if(getIntent().getBooleanExtra("ancienne",false)){
             if(uneLigne.getQUANTITELIVREEPRODUCTEUR() == uneLigne.getQUANTITERECUPERECLIENT()){
                 textInfo.setText("La commande a été récupéré.");
@@ -65,11 +66,9 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
                 }
 
             }
-            TextView textQuantiteFinal = (TextView) findViewById(R.id.textQuantiteFinal);
-            textQuantiteFinal.setVisibility(View.INVISIBLE);
-            EditText editQuantite = (EditText) findViewById(R.id.editQuantiteFinal);
-            editQuantite.setVisibility(View.INVISIBLE);
-            Button valider = (Button) findViewById(R.id.btnAction);
+
+             editQuantiteLivre.setEnabled(false);
+            editQuantiteRecup.setEnabled(false);
             valider.setVisibility(View.INVISIBLE);
 
 
@@ -77,11 +76,8 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
         }else{
             if(uneLigne.getQUANTITELIVREEPRODUCTEUR() == uneLigne.getQUANTITERECUPERECLIENT() && uneLigne.getQuantite() == uneLigne.getQUANTITERECUPERECLIENT()){
                 textInfo.setText("La commande a été récupéré.");
-                TextView textQuantiteFinal = (TextView) findViewById(R.id.textQuantiteFinal);
-                textQuantiteFinal.setVisibility(View.INVISIBLE);
-                EditText editQuantite = (EditText) findViewById(R.id.editQuantiteFinal);
-                editQuantite.setVisibility(View.INVISIBLE);
-                Button valider = (Button) findViewById(R.id.btnAction);
+                editQuantiteLivre.setEnabled(false);
+                editQuantiteRecup.setEnabled(false);
                 valider.setVisibility(View.INVISIBLE);
             }
             else if(uneLigne.getQUANTITERECUPERECLIENT() >0){
@@ -92,18 +88,30 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
             }
         }
         JSONObject log = null;
-        ArrayList<Commande> commandes = new ArrayList<>();
         try {
             log = new JSONObject(getIntent().getStringExtra("log"));
 
             if(log.getString("statut").equals("client")){
                 Utilisateur unUtil = lesUtilisateurs.getUnUtilisateurByIDUTI(log.getString("idutilisateur"));
+                editQuantiteRecup.setText(uneLigne.getQUANTITERECUPERECLIENT().toString());
+                editQuantiteLivre.setText(uneLigne.getQUANTITELIVREECLIENT().toString());
             }
             else if(log.getString("statut").equals("producteur")){
                 Producteur unProducteur =  lesProducteurs.getProducteurByIDUtilisateur(log.getString("idutilisateur"));
+                editQuantiteRecup.setText(uneLigne.getQUANTITERECUPEREPRODUCTEUR().toString());
+                editQuantiteLivre.setText(uneLigne.getQUANTITELIVREEPRODUCTEUR().toString());
             }
             else{
-
+                editQuantiteLivre.setEnabled(false);
+                editQuantiteRecup.setEnabled(false);
+                editQuantiteRecup.setText(uneLigne.getQUANTITERECUPERECLIENT().toString());
+                editQuantiteLivre.setText(uneLigne.getQUANTITELIVREEPRODUCTEUR().toString());
+                if(!uneLigne.getVUERESPONSABLE()){
+                    valider.setText("Valider les modifications");
+                }
+                else{
+                    valider.setVisibility(View.INVISIBLE);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
