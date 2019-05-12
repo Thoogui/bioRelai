@@ -51,10 +51,10 @@ public class ConsulterLigneCommandeJourActivity extends Activity
         HashMap<String,String> item ;
         for(LigneCommande uneLigne : ligneCommandes){
             item = new HashMap<String,String>();
-            item.put("ligne1", uneLigne.unProduit.getNomProduit() +" - "+uneLigne.quantite +"g");
-            item.put("ligne2" ,uneLigne.unProduit.getUneCategorie().getNomCategorie() +" - "+ uneLigne.unProduit.getDescriptifProduit());
-            item.put("idProduit" , uneLigne.unProduit.getIdProduit());
-            item.put("idCommande" , uneLigne.uneCommande.getIdCommande());
+            item.put("ligne1", uneLigne.getUnProduit().getNomProduit() +" - "+uneLigne.getQuantite() +"g");
+            item.put("ligne2" ,uneLigne.getUnProduit().getUneCategorie().getNomCategorie() +" - "+ uneLigne.getUnProduit().getDescriptifProduit());
+            item.put("idProduit" , uneLigne.getUnProduit().getIdProduit());
+            item.put("idCommande" , uneLigne.getUneCommande().getIdCommande());
             listeCommandes.add(item);
         }
         ListView listViewLigneCommande = (ListView) findViewById(R.id.listViewCommandes);

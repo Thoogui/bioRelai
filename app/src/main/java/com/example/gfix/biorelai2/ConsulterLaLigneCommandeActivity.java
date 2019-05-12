@@ -75,7 +75,7 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
 
 
         }else{
-            if(uneLigne.getQUANTITELIVREEPRODUCTEUR() == uneLigne.getQUANTITERECUPERECLIENT()){
+            if(uneLigne.getQUANTITELIVREEPRODUCTEUR() == uneLigne.getQUANTITERECUPERECLIENT() && uneLigne.getQuantite() == uneLigne.getQUANTITERECUPERECLIENT()){
                 textInfo.setText("La commande a été récupéré.");
                 TextView textQuantiteFinal = (TextView) findViewById(R.id.textQuantiteFinal);
                 textQuantiteFinal.setVisibility(View.INVISIBLE);
