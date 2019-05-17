@@ -78,6 +78,10 @@ public class lesCommandes {
     }
 
 
+    public static void clearListe(){
+        listCommandes.clear();
+    }
+
     public static ArrayList<Commande> getListCommandesJourProducteur(String idProducteur) {
         ArrayList<Commande> liste = new ArrayList<Commande>();
         Date date = new Date();

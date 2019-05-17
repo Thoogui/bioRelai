@@ -13,6 +13,10 @@ public class lesCategories {
         return listCategories;
     }
 
+    public static void clearListe(){
+        listCategories.clear();
+    }
+
     public static Categorie getCategorieByID(String unID){
         Categorie uneCat = new Categorie("0", "0");
         for(Categorie uneCateg : listCategories){

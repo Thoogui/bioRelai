@@ -22,4 +22,7 @@ public class lesProduits {
         return  null;
     }
 
+    public static void clearListe(){
+        listProduits.clear();
+    }
 }

@@ -32,6 +32,10 @@ public class lesLignesCommandes {
         return  liste;
     }
 
+    public static void clearListe(){
+        listLigneCommandes.clear();
+    }
+
     public static ArrayList<LigneCommande> getUneListeLigneProducteurByCommande(Commande commande, Producteur unPro) {
         ArrayList<LigneCommande> liste = new ArrayList<LigneCommande>();
         for(LigneCommande uneLigne : listLigneCommandes){

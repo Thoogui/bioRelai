@@ -31,16 +31,23 @@ public class ConsulterCommandeActivity extends Activity {
         try {
             log = new JSONObject(getIntent().getStringExtra("log"));
 
+            //Si il s'agit d'un client alors...
             if(log.getString("statut").equals("client")){
+                //On récupere l'objet utilisateur
                 Utilisateur unUtil = lesUtilisateurs.getUnUtilisateurByIDUTI(log.getString("idutilisateur"));
+                //On récupere les commandes du jour d'un client
                 commandes = lesCommandes.getListCommandesJourAdherent(unUtil.getIdAdherent());
             }
+            //Si il s'agit d'un producteur alors...
             else if(log.getString("statut").equals("producteur")){
+                //On récupere l'objet producteur
                 Producteur unProducteur =  lesProducteurs.getProducteurByIDUtilisateur(log.getString("idutilisateur"));
-
+                //On récupere les commandes d'un producteur
                 commandes = lesCommandes.getListCommandesJourProducteur(unProducteur.getIdProducteur());
             }
+            //Si il s'agit d'un responsable alors
             else{
+                //On récupere toutes les commandes du jour
                 commandes = lesCommandes.getListCommandesJour();
             }
         } catch (JSONException e) {
@@ -48,6 +55,7 @@ public class ConsulterCommandeActivity extends Activity {
         }
 
 
+        //On remplie la listView
         final ArrayList<HashMap<String,String>> listeCommandes = new  ArrayList<HashMap<String,String>>();
         HashMap<String,String> item ;
         for(Commande uneComm : commandes){
@@ -62,6 +70,7 @@ public class ConsulterCommandeActivity extends Activity {
                 new String[]{"ligne1" , "ligne2"},new int[]{android.R.id.text1 , android.R.id.text2});
         listViewCommande.setAdapter(adapter);
 
+        //On ajoute un listener lors d'un click sur un item de la listView
         listViewCommande.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

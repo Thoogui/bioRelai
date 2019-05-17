@@ -22,6 +22,10 @@ public class lesProducteurs {
         return null;
     }
 
+    public static void clearListe(){
+        listProducteurs.clear();
+    }
+
     public static Producteur getProducteurByIDUtilisateur(String unID){
         for(Producteur unPro : listProducteurs){
             if(unPro.getIdUtiliateur().equals(unID)){

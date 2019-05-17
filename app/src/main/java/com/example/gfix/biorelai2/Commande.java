@@ -5,10 +5,12 @@ package com.example.gfix.biorelai2;
  */
 
 public class Commande {
+    //Attribut de la classe Commande
     private String idCommande;
     private Utilisateur Adherent;
     private String dateCommande;
 
+    //Constructeur de la Classe Commande
     public Commande(String idCommande, Utilisateur Adherent, String dateCommande) {
         this.idCommande = idCommande;
         this.Adherent = Adherent;

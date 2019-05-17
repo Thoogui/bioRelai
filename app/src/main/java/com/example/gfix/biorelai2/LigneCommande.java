@@ -1,5 +1,7 @@
 package com.example.gfix.biorelai2;
 
+import java.util.Comparator;
+
 public class LigneCommande {
     private Produit unProduit;
     private Commande uneCommande;
@@ -111,4 +113,32 @@ public class LigneCommande {
     public void setVUERESPONSABLE(Boolean VUERESPONSABLE) {
         this.VUERESPONSABLE = VUERESPONSABLE;
     }
+
+    public static Comparator<LigneCommande> ComparatorNomProducteur = new Comparator<LigneCommande>() {
+        @Override
+        public int compare(LigneCommande e1, LigneCommande e2) {
+            return e1.getUnProduit().getUnProducteur().getNomProducteur().compareTo(e2.getUnProduit().getUnProducteur().getNomProducteur());
+        }
+    };
+
+    public static Comparator<LigneCommande> ComparatorCategorie = new Comparator<LigneCommande>() {
+        @Override
+        public int compare(LigneCommande e1, LigneCommande e2) {
+            return e1.getUnProduit().getUneCategorie().getNomCategorie().compareTo(e2.getUnProduit().getUneCategorie().getNomCategorie());
+        }
+    };
+
+    public static Comparator<LigneCommande> ComparatorClient = new Comparator<LigneCommande>() {
+        @Override
+        public int compare(LigneCommande e1, LigneCommande e2) {
+            return e1.getUneCommande().getAdherent().getNOMUTILISATEUR().compareTo(e2.getUneCommande().getAdherent().getNOMUTILISATEUR());
+        }
+    };
+
+    public static Comparator<LigneCommande> ComparatorProduit = new Comparator<LigneCommande>() {
+        @Override
+        public int compare(LigneCommande e1, LigneCommande e2) {
+            return e1.getUnProduit().getNomProduit().compareTo(e2.getUnProduit().getNomProduit());
+        }
+    };
 }

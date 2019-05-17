@@ -35,14 +35,18 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ligne_commande);
+        //On récupere l'objet de la ligne commande
         uneLigne = lesLignesCommandes.getLigneCommandes(lesCommandes.getUneCommandeByID(getIntent().getStringExtra("idCommande")),lesProduits.getUnProduitByID(getIntent().getStringExtra("idProduit")));
         TextView textProduit = (TextView) findViewById(R.id.textProduit);
+        //On affiche le nom du produit
         textProduit.setText(uneLigne.getUnProduit().getNomProduit());
 
         TextView textQuantite = (TextView) findViewById(R.id.textQuantite);
+        //On affiche la quantite
         textQuantite.setText(textQuantite.getText() + " : "+uneLigne.getQuantite() +"g");
 
         ImageView uneImage = (ImageView) findViewById(R.id.imageProduit);
+        //On affiche l'image du produit
         Picasso.with(this).load(uneLigne.getUnProduit().getPhotoProduit()).into(uneImage);
         TextView textInfo = (TextView) findViewById(R.id.textInfo);
 
@@ -52,10 +56,13 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
 
 
 
+        //si il s'agit d'une ancienne commande alors...
         if(getIntent().getBooleanExtra("ancienne",false)){
+            //si la commande a été entierement recuperer alors on affiche le message correspondant
             if(uneLigne.getQUANTITELIVREEPRODUCTEUR() == uneLigne.getQUANTITERECUPERECLIENT()){
                 textInfo.setText("La commande a été récupéré.");
             }
+            //Si le client a récupéré au moins quelque chose alors la commande a été recupere partiellement
             else if(uneLigne.getQUANTITERECUPERECLIENT() >0){
                 textInfo.setText("La commande a été récupéré partiellement.");
             }else{
@@ -73,8 +80,10 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
 
 
 
-        }else{
+        }else{ //si il s'agit d'une commande du jour alors...
+            //Si toute la commande a été récuperer alors..
             if(uneLigne.getQUANTITELIVREEPRODUCTEUR() == uneLigne.getQUANTITERECUPERECLIENT() && uneLigne.getQuantite() == uneLigne.getQUANTITERECUPERECLIENT()){
+                //On affiche le message
                 textInfo.setText("La commande a été récupéré.");
                 editQuantiteLivre.setEnabled(false);
                 editQuantiteRecup.setEnabled(false);
@@ -91,16 +100,19 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
         try {
             log = new JSONObject(getIntent().getStringExtra("log"));
 
+            //si il s'agit d'un client alors...
             if(log.getString("statut").equals("client")){
                 Utilisateur unUtil = lesUtilisateurs.getUnUtilisateurByIDUTI(log.getString("idutilisateur"));
                 editQuantiteRecup.setText(uneLigne.getQUANTITERECUPERECLIENT().toString());
                 editQuantiteLivre.setText(uneLigne.getQUANTITELIVREECLIENT().toString());
             }
+            //si il s'agit d'un producteur alors...
             else if(log.getString("statut").equals("producteur")){
                 Producteur unProducteur =  lesProducteurs.getProducteurByIDUtilisateur(log.getString("idutilisateur"));
                 editQuantiteRecup.setText(uneLigne.getQUANTITERECUPEREPRODUCTEUR().toString());
                 editQuantiteLivre.setText(uneLigne.getQUANTITELIVREEPRODUCTEUR().toString());
             }
+            //si il s'agit d'un responsable alors...
             else{
                 editQuantiteLivre.setEnabled(false);
                 editQuantiteRecup.setEnabled(false);

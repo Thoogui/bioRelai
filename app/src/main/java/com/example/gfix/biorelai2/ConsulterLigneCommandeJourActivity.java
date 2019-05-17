@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -22,6 +23,10 @@ public class ConsulterLigneCommandeJourActivity extends Activity
 
     String responseStr;
     OkHttpClient client = new OkHttpClient();
+    ArrayList<LigneCommande> ligneCommandes = new ArrayList<>();
+    String statut;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,24 +34,75 @@ public class ConsulterLigneCommandeJourActivity extends Activity
         setContentView(R.layout.activity_liste_lignescommande);
 
         JSONObject log = null;
-        ArrayList<LigneCommande> ligneCommandes = new ArrayList<>();
         try {
             log = new JSONObject(getIntent().getStringExtra("log"));
             Commande uneCommande = lesCommandes.getUneCommandeByID(getIntent().getStringExtra("idCommande"));
             TextView text = (TextView) findViewById(R.id.textLigne);
             text.setText(text.getText() + getIntent().getStringExtra("idCommande"));
+            RadioButton premierBouton = (RadioButton) findViewById(R.id.radioTrie1);
+            RadioButton deuxiemeBouton = (RadioButton) findViewById(R.id.radioButtonTrie2);
+            View.OnClickListener first_radio_listener = new View.OnClickListener(){
+                public void onClick(View v) {
+                    if(statut.equals("client")){
+                        ligneCommandes.sort(LigneCommande.ComparatorNomProducteur);
+                    }
+                    else if(statut.equals("producteur")){
+                        ligneCommandes.sort(LigneCommande.ComparatorCategorie);
+                    }
+                    else{
+                        ligneCommandes.sort(LigneCommande.ComparatorProduit);
+                    }
+                    remplirList();
+                }
+            };
+
+            View.OnClickListener second_radio_listener = new View.OnClickListener(){
+                public void onClick(View v) {
+                    if(statut.equals("client")){
+                        ligneCommandes.sort(LigneCommande.ComparatorCategorie);
+                    }
+                    else if(statut.equals("producteur")){
+                        ligneCommandes.sort(LigneCommande.ComparatorProduit);
+                    }
+                    else{
+                        ligneCommandes.sort(LigneCommande.ComparatorNomProducteur);
+                    }
+                    remplirList();
+                }
+            };
+            premierBouton.setOnClickListener(first_radio_listener);
+            deuxiemeBouton.setOnClickListener(second_radio_listener);
+            statut = log.getString("statut");
+
+
             if(log.getString("statut").equals("producteur")){
                 Producteur unProducteur =  lesProducteurs.getProducteurByIDUtilisateur(log.getString("idutilisateur"));
                 ligneCommandes = lesLignesCommandes.getUneListeLigneProducteurByCommande(uneCommande,unProducteur);
+                premierBouton.setText("Trier par Produit");
+                deuxiemeBouton.setText("Trier par Catégorie");
+                ligneCommandes.sort(LigneCommande.ComparatorClient);
             }
             else{
                 ligneCommandes = lesLignesCommandes.getUneListeLigneByCommande(uneCommande);
+                if(log.getString("statut").equals("client")){
+                    premierBouton.setText("Trier par Producteurs");
+                    deuxiemeBouton.setText("Trier par Catégories");
+                    ligneCommandes.sort(LigneCommande.ComparatorNomProducteur);
+                }else{
+                    premierBouton.setText("Trier par Produit");
+                    deuxiemeBouton.setText("Trier par Producteur");
+                    ligneCommandes.sort(LigneCommande.ComparatorClient);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        remplirList();
 
+    }
+
+    public void remplirList(){
         final ArrayList<HashMap<String,String>> listeCommandes = new  ArrayList<HashMap<String,String>>();
         HashMap<String,String> item ;
         for(LigneCommande uneLigne : ligneCommandes){
@@ -74,5 +130,7 @@ public class ConsulterLigneCommandeJourActivity extends Activity
             }
         });
     }
+
+
 
 }

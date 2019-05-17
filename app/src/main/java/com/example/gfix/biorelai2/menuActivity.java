@@ -82,7 +82,7 @@ public class menuActivity extends Activity {
 
         @Override
         protected void onPreExecute() {
-
+            lesCategories.clearListe();
         }
         @Override
         protected Void doInBackground(Void... params){
@@ -128,6 +128,7 @@ public class menuActivity extends Activity {
 
         @Override
         protected void onPreExecute() {
+            lesUtilisateurs.clearListe();
 
         }
         @Override
@@ -175,6 +176,7 @@ public class menuActivity extends Activity {
 
         @Override
         protected void onPreExecute() {
+            lesProducteurs.clearListe();
 
         }
         @Override
@@ -222,6 +224,7 @@ public class menuActivity extends Activity {
 
         @Override
         protected void onPreExecute() {
+            lesProduits.clearListe();
 
         }
         @Override
@@ -267,6 +270,8 @@ public class menuActivity extends Activity {
 
         @Override
         protected void onPreExecute() {
+
+            lesCommandes.clearListe();
 
         }
         @Override
@@ -314,6 +319,7 @@ public class menuActivity extends Activity {
 
         @Override
         protected void onPreExecute() {
+            lesLignesCommandes.clearListe();
 
         }
         @Override

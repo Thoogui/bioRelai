@@ -26,6 +26,10 @@ public class lesUtilisateurs {
         return  null;
     }
 
+    public static void clearListe(){
+        listUtilisateur.clear();
+    }
+
     public static Utilisateur getUnUtilisateurByIDUTI(String idUtilisateur) {
         for(Utilisateur unUtil : listUtilisateur){
             if(unUtil.getIDUTILISATEUR().equals(idUtilisateur)){
