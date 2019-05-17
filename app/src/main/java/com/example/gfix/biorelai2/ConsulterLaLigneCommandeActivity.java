@@ -1,6 +1,7 @@
 package com.example.gfix.biorelai2;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +31,7 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
     private LigneCommande uneLigne;
     String responseStr;
     OkHttpClient client = new OkHttpClient();
-
+    String statut;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,8 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
         //si il s'agit d'une ancienne commande alors...
         if(getIntent().getBooleanExtra("ancienne",false)){
             //si la commande a été entierement recuperer alors on affiche le message correspondant
-            if(uneLigne.getQUANTITELIVREEPRODUCTEUR() == uneLigne.getQUANTITERECUPERECLIENT()){
+
+            if(uneLigne.getQUANTITELIVREEPRODUCTEUR().equals(uneLigne.getQUANTITERECUPERECLIENT())){
                 textInfo.setText("La commande a été récupéré.");
             }
             //Si le client a récupéré au moins quelque chose alors la commande a été recupere partiellement
@@ -82,7 +84,7 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
 
         }else{ //si il s'agit d'une commande du jour alors...
             //Si toute la commande a été récuperer alors..
-            if(uneLigne.getQUANTITELIVREEPRODUCTEUR() == uneLigne.getQUANTITERECUPERECLIENT() && uneLigne.getQuantite() == uneLigne.getQUANTITERECUPERECLIENT()){
+            if(uneLigne.getQUANTITELIVREEPRODUCTEUR().equals(uneLigne.getQUANTITERECUPERECLIENT()) && uneLigne.getQuantite().equals(uneLigne.getQUANTITERECUPERECLIENT())){
                 //On affiche le message
                 textInfo.setText("La commande a été récupéré.");
                 editQuantiteLivre.setEnabled(false);
@@ -96,10 +98,12 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
                 textInfo.setText("La commande n'a pas encore été récupéré.");
             }
         }
+
         JSONObject log = null;
         try {
             log = new JSONObject(getIntent().getStringExtra("log"));
 
+            statut = log.getString("statut");
             //si il s'agit d'un client alors...
             if(log.getString("statut").equals("client")){
                 Utilisateur unUtil = lesUtilisateurs.getUnUtilisateurByIDUTI(log.getString("idutilisateur"));
@@ -129,10 +133,31 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
             e.printStackTrace();
         }
 
+        valider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editQuantiteRecup = (EditText) findViewById(R.id.editQuantiteRecup);
+                EditText editQuantiteLivre = (EditText) findViewById(R.id.editQuantiteLivre);
+                if(statut.equals("client")){
+                    uneLigne.setQUANTITERECUPERECLIENT(Double.parseDouble(editQuantiteRecup.getText().toString()));
+                    uneLigne.setQUANTITELIVREECLIENT(Double.parseDouble(editQuantiteLivre.getText().toString()));
+                    uneLigne.setVUERESPONSABLE(false);
+                }
+                else if(statut.equals("producteur")){
+                    uneLigne.setQUANTITERECUPEREPRODUCTEUR(Double.parseDouble(editQuantiteRecup.getText().toString()));
+                    uneLigne.setQUANTITELIVREEPRODUCTEUR(Double.parseDouble(editQuantiteLivre.getText().toString()));
+                    uneLigne.setVUERESPONSABLE(false);
+                }
+                else{
+                    uneLigne.setVUERESPONSABLE(true);
+                }
+                new ConsulterLaLigneCommandeActivity.BackTaskEnregistrer().execute();
+            }
+        });
 
     }
 
-    private class BackTaskProduit extends AsyncTask<Void, Void, Void> {
+    private class BackTaskEnregistrer extends AsyncTask<Void, Void, Void> {
 
 
         @Override
@@ -145,8 +170,11 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
                 RequestBody formBody = new FormBody.Builder()
                         .add("idCommande",uneLigne.getUneCommande().getIdCommande())
                         .add("idProduit",uneLigne.getUnProduit().getIdProduit())
-                        .add("quantiteClient",uneLigne.getQUANTITERECUPERECLIENT().toString())
+                        .add("QUANTITE",uneLigne.getQuantite().toString())
+                        .add("QUANTITELIVREECLIENT",uneLigne.getQuantiteLivreClient().toString())
+                        .add("QUANTITERECUPERECLIENT",uneLigne.getQUANTITERECUPERECLIENT().toString())
                         .add("QUANTITELIVREEPRODUCTEUR",uneLigne.getQUANTITELIVREEPRODUCTEUR().toString())
+                        .add("QUANTITERECUPEREPRODUCTEUR",uneLigne.getQUANTITERECUPEREPRODUCTEUR().toString())
                         .add("VUERESPONSABLE",uneLigne.getVUERESPONSABLEChiffre())
                         .build();
                 Request request = new Request.Builder()

@@ -54,7 +54,7 @@ public class ConsulterAncienneLigneCommandeActivity extends Activity {
                     //si il s'agit d'un producteur
                     else if(statut.equals("producteur")){
                         //on trie l'arraylist par categorie
-                        ligneCommandes.sort(LigneCommande.ComparatorCategorie);
+                        ligneCommandes.sort(LigneCommande.ComparatorProduit);
                     }
                     //si il s'agit d'un responsable
                     else{
@@ -77,7 +77,7 @@ public class ConsulterAncienneLigneCommandeActivity extends Activity {
                     //si il s'agit d'un producteur
                     else if(statut.equals("producteur")){
                         //on trie l'arraylist par produit
-                        ligneCommandes.sort(LigneCommande.ComparatorProduit);
+                        ligneCommandes.sort(LigneCommande.ComparatorCategorie);
                     }
                     //si il s'agit d'un responsable
                     else{
