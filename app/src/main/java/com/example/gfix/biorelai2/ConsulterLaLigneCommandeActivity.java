@@ -192,19 +192,9 @@ public class ConsulterLaLigneCommandeActivity extends Activity {
         @Override
         protected void onPostExecute(Void result) {
             if (responseStr.compareTo("false") != 0) {
-                try {
-                    JSONArray jsonArray = new JSONArray(responseStr);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        Produit unProduit = new Produit(jsonObject.getString("IDPRODUIT"),lesProducteurs.getProducteurByID(jsonObject.getString("IDPRODUCTEUR")),lesCategories.getCategorieByID(jsonObject.getString("IDCATEGORIE")),jsonObject.getString("NOMPRODUIT"),jsonObject.getString("DESCRIPTIFPRODUIT"),jsonObject.getString("PHOTOPRODUIT"));
-                        lesProduits.ajouterProduit(unProduit);
-                    }
-                } catch (JSONException e) {
-                    Toast.makeText(ConsulterLaLigneCommandeActivity.this, "Erreur Produit!!!",
-                            Toast.LENGTH_SHORT).show();
-                }
+                
             } else {
-                Toast.makeText(ConsulterLaLigneCommandeActivity.this, "Aucune Commande !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConsulterLaLigneCommandeActivity.this, "Erreur !", Toast.LENGTH_SHORT).show();
             }
         }
 
